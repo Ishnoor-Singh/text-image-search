@@ -103,6 +103,101 @@ export class ElasticImageDB {
         })
     }
 
+    const textInferenceTask = async (apiKey: string) => {
+        try {
+          const response = await client.inference.putPipeline({
+            id: 'openai_embeddings',
+            body: {
+              service: 'openai',
+              service_settings: {
+                api_key: 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,
+              },
+              task_settings: {
+                model: 'text-embedding-ada-002',
+              },
+            },
+          });
+
+    const createOpenAIEmbeddingsIndex = async () => {
+    try {
+        const response = await client.indices.create({
+        index: 'openai-embeddings',
+        body: {
+            mappings: {
+            properties: {
+                content_embedding: {
+                type: 'dense_vector',
+                dims: 1536,
+                element_type: 'float',
+                similarity: 'dot_product',
+                },
+                content: {
+                type: 'text',
+                },
+            },
+            },
+        },
+        });
+
+    const createOpenAIEmbeddingsPipeline = async () => {
+    try {
+        const response = await client.ingest.putPipeline({
+        id: 'openai_embeddings',
+        body: {
+            processors: [
+            {
+                inference: {
+                model_id: 'openai_embeddings',
+                input_output: {
+                    input_field: 'content',
+                    output_field: 'content_embedding',
+                },
+                },
+            },
+            ],
+        },
+        });
+
+    const reindexDataWithEmbeddings = async () => {
+        try {
+            const response = await client.reindex({
+            waitForCompletion: false,
+            body: {
+                source: {
+                index: 'images',
+                size: 50, // default is 1000. Reducing size to a smaller number makes the update of the reindexing process quicker which enables you to follow the progress closely and detect errors early.
+                },
+                dest: {
+                index: 'openai-embeddings',
+                pipeline: 'openai_embeddings',
+                },
+            },
+            });
+    const searchWithEmbeddings = async (query: string) => {
+        try {
+            const response = await client.search({
+            index: 'openai-embeddings',
+            body: {
+                knn: {
+                field: 'content_embedding',
+                queryVectorBuilder: {
+                    textEmbedding: {
+                    modelId: 'openai_embeddings',
+                    modelText: query,
+                    },
+                },
+                k: 10,
+                numCandidates: 100,
+                },
+                _source: ['id', 'content'],
+            },
+            });
+
+    
+        
+
+    
+
 }
 
 class DB {
