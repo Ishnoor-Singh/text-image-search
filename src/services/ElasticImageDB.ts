@@ -8,13 +8,17 @@ export class ElasticImageDB {
         this.client = new Client({
             node: process.env.ELASTICSEARCH_URL,
             auth: {
-                username: process.env.ELASTICSEARCH_USER,
-                password: process.env.ELASTICSEARCH_PWD
+                apiKey: process.env.ELASTICSEARCH_API_KEY
             },
-            tls: {
-                // ca: fs.readFileSync(process.env.ELASTICSEARCH_CERT_PATH),
-                rejectUnauthorized: false
-            }
+            // auth: {
+            //     username: process.env.ELASTICSEARCH_USER,
+            //     password: process.env.ELASTICSEARCH_PWD
+            // },
+            
+            // tls: {
+            //     // ca: fs.readFileSync(process.env.ELASTICSEARCH_CERT_PATH),
+            //     rejectUnauthorized: false
+            // }
         })
     }
 
