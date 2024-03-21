@@ -32,7 +32,7 @@ export function ImageCard(imageProps: ImageProps): ReactElement {
     return (
         <Card className='overflow-hidden' key={imageProps.key} >
             <div className="relative w-full h-full m-0 p-0 flex items-center flex-col">
-                <img className='relative' src={`/mms_images/${(imageProps.imageURL)}`} 
+                <img className='relative' src={getImageURLFromName(imageProps.imageURL)}
                 alt={imageProps.description} 
             />
                 <div className='flex flex-wrap my-3'>

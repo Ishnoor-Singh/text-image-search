@@ -16,6 +16,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "auth0": "^4.3.1",
     "auth0-lock": "^12.4.0",
+    "aws-sdk": "^2.1582.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dotenv": "^16.4.5",

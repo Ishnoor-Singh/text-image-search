@@ -8,5 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export function getImageURLFromName(filename: string, imagesBaseURL = IMAGES_BASE_URL) {
-  return `${imagesBaseURL}/${filename}`;
+  // return `${imagesBaseURL}/${filename}`;
+    return `${filename}`;
+  
 }
