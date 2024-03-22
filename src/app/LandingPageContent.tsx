@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export default async function LandingPageContent() {
     const session = await getSession();
-    console.log({session})
     if (session?.user) {
         redirect('/application')
     }

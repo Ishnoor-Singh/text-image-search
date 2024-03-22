@@ -6,9 +6,7 @@ export type ImageData = {
     imageURL: string;
 }
 
-export type ImageProps = ImageData & {
-    key: number
-}
+export type ImageProps = ImageData
 
 export type ImageDataDB = ImageData & {
     id: string;

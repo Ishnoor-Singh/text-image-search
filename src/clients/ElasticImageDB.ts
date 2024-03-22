@@ -1,7 +1,5 @@
 import {Client} from '@elastic/elasticsearch';
 
-const INDEX_NAME = 'images';// INDEX_NAME = 'images';
-// INDEX_NAME = 'openai-embeddings';
 
 export class ElasticImageDB {
     private static instance: ElasticImageDB;
@@ -12,15 +10,6 @@ export class ElasticImageDB {
             auth: {
                 apiKey: process.env.ELASTICSEARCH_API_KEY
             },
-            // auth: {
-            //     username: process.env.ELASTICSEARCH_USER,
-            //     password: process.env.ELASTICSEARCH_PWD
-            // },
-            
-            // tls: {
-            //     // ca: fs.readFileSync(process.env.ELASTICSEARCH_CERT_PATH),
-            //     rejectUnauthorized: false
-            // }
         })
     }
 
@@ -29,10 +18,9 @@ export class ElasticImageDB {
             this.instance = new ElasticImageDB();
         }
         return this.instance;
-
     }
 
-    public getAllImages(userId: string, page=0) {
+    public getAllImages(userId: string, page:number=0): Promise<ImageData[] | null>{
         const PAGE_SIZE = 20;
         return this.client.search({
             index: 'images',
@@ -46,8 +34,18 @@ export class ElasticImageDB {
                     
                     }
                 },
-                  from: page * PAGE_SIZE,
+                from: page * PAGE_SIZE,
                 size: PAGE_SIZE
+        }).then((res) => {
+            if (!res.hits) {
+                return null;
+            }
+            if (res.hits?.total?.value === 0) {
+                return []
+            }
+            return res.hits.hits.map(hit => ({ ...hit._source, id: hit._id }))
+        }).catch(err => {
+            console.error(err)
         })
     }
 
@@ -81,7 +79,7 @@ export class ElasticImageDB {
 
     }
 
-    public getImageSearchResults(query: string, userId: string, page=0) {
+    public getImageSearchResults(query: string, userId: string, page:number=0): Promise<ImageData[] | null>{
         const PAGE_SIZE = 20;
         return this.client.search({
             index: 'images',
@@ -103,6 +101,16 @@ export class ElasticImageDB {
                 from: page * PAGE_SIZE,
                 size: PAGE_SIZE
             }
+        }).then((res) => {
+                    if (!res.hits) {
+                        return null;
+                    }
+                    if (res.hits?.total?.value === 0) {
+                        return []
+                    }
+                    return res.hits.hits.map(hit => ({ ...hit._source, id: hit._id }))
+                }).catch(err => {
+                    console.error(err)
         })
     }
 

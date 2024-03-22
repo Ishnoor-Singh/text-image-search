@@ -7,7 +7,6 @@ export default function addPhone() {
     async function handleSubmit(formData:FormData) {
         'use server'
         const phone = formData.get('phone');
-        console.log(phone);
         await updateUserPhoneNumber('+1' + phone);
         // nagivate to home
         redirect('/application');

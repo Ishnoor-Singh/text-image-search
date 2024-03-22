@@ -1,6 +1,6 @@
 import Images from "@/components/Images";
 import { getSession } from "@auth0/nextjs-auth0";
-import { ElasticImageDB } from "@/services/ElasticImageDB";
+import { ElasticImageDB } from "@/clients/ElasticImageDB";
 
 export default async function ImageGallery({
     searchParams,
@@ -18,26 +18,18 @@ export default async function ImageGallery({
 
 
 async function AllImages({ userId }: { userId: string }) {
-    const images = await ElasticImageDB.getInstance().getAllImages(userId).then(res => {
-        if (res?.hits?.total?.value === 0) {
-            return []
-        }
-        return (res.hits.hits.map(hit => ({ ...hit._source, id: hit._id })) as ImageData[])
-    }).catch(err => {
-        console.error({err})
-    })
+    const images = await ElasticImageDB.getInstance().getAllImages(userId)
+    if (images === null) {
+        return <div>Failed to load images</div>
+    }
     return <Images images={images} />
 }
 
 
 async function SearchImages({ query, userId }: { query: string, userId: string }) {
-    const images = await ElasticImageDB.getInstance().getImageSearchResults(query, userId).then(res => {
-        if (res?.hits?.total?.value === 0) {
-            return []
-        }
-        return (res.hits.hits.map(hit => ({ ...hit._source, id: hit._id })) as ImageData[])
-    }).catch(err => {
-        console.error(err)
-    })
+    const images = await ElasticImageDB.getInstance().getImageSearchResults(query, userId);
+    if (images === null) {
+        return <div>Failed to load images</div>
+    }
     return <Images images={images} />
 }
