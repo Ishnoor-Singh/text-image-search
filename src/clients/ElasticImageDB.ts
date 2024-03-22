@@ -43,7 +43,7 @@ export class ElasticImageDB {
             if (res.hits?.total?.value === 0) {
                 return []
             }
-            return res.hits.hits.map(hit => ({ ...hit._source, id: hit._id }).reverse())
+            return res.hits.hits.reverse().map(hit => ({ ...hit._source, id: hit._id }))
         }).catch(err => {
             console.error(err)
         })

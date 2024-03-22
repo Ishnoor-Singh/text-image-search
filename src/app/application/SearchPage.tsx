@@ -1,10 +1,9 @@
 'use client'
 import { Suspense } from "react";
-import { useState } from "react";
 import {Input} from "@/components/ui/input";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function Home({children}) {
+export default function SearchPage({ children}) {
     const router = useRouter();
     const pathname = usePathname();
   
