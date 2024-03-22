@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input";
 import { updateUserPhoneNumber } from "@/lib/phoneNumber";
 import { redirect } from "next/navigation";
-export default function addPhone() {
+export default function AddPhone() {
     async function handleSubmit(formData:FormData) {
         'use server'
         const phone = formData.get('phone');

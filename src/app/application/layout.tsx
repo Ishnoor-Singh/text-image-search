@@ -1,5 +1,5 @@
 import FloatingButtonLinkBottom from "@/components/FloatingButtonLinkBottom";
-import { FilePlusIcon, PlusIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 export default function ApplicationLayout ({
     children,

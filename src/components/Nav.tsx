@@ -1,15 +1,13 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { Pencil1Icon } from "@radix-ui/react-icons";
-import { usePathname } from 'next/navigation';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { getSession } from '@auth0/nextjs-auth0';
+import { ProfilePopover } from './Proflile';
 
-export default function Nav({ showPhone }: { showPhone: boolean } = { showPhone: false }) {
-    const { user } = useUser();
-    const pathname = usePathname();
-    const pageName = pathname?.split('/').pop();
+export default async function Nav() {
+    const session = await getSession();
+    if (!(session?.user)) {
+        return null;
+    }
 
     return (
         <nav className="flex items-center justify-between p-6 text-white border-b">
@@ -19,11 +17,7 @@ export default function Nav({ showPhone }: { showPhone: boolean } = { showPhone:
                 </Link>
             </div>
             <div>
-                {user ? <a href="/api/auth/logout" >
-                    Log Out
-                </a> : <a href="/api/auth/login" >
-                    Log In
-                </a>}
+                <ProfilePopover user={session.user} />
             </div>
         </nav>
     );

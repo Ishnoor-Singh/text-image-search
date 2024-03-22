@@ -1,5 +1,5 @@
 import {Client} from '@elastic/elasticsearch';
-
+import type {ImageData} from '@/types/image';
 
 export class ElasticImageDB {
     private static instance: ElasticImageDB;

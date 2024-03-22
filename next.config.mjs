@@ -6,6 +6,9 @@ const nextConfig = {  typescript: {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  images: {
+      domains: ['s.gravatar.com'],
+   },
 };
 
 export default nextConfig;
