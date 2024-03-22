@@ -7,10 +7,7 @@ export default async function ImageGallery({
 }: {
     searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-    const selectedSearch = searchParams?.search ?? "";
-    const query = Array.isArray(selectedSearch)
-        ? selectedSearch[0]
-        : selectedSearch;
+    const query = searchParams?.search ?? "";
     const userId = await getSession().then(session => session?.user?.email)
     return query ? <SearchImages userId={userId} query={query} /> : <AllImages userId={userId} />
 }

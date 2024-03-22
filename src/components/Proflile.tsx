@@ -16,7 +16,7 @@ export function ProfilePopover({ user }) {
 
                 </li>
                 <li>
-                    <Link href="/applicaiton/profile" legacyBehavior>
+                    <Link href="/application/profile">
                         <span className="block p-2">Profile</span>
                     </Link>
                 </li>
