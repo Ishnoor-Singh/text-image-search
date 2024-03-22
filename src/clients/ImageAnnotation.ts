@@ -27,6 +27,9 @@ export async function processImageFromURL(imageUrl: string, systemMessage: strin
         messages: [{ role: 'system', content: systemMessage },
         { role: 'user', content: [{ type: 'text', 'text': userPrompt }, { type: 'image_url', image_url: { url: imageUrl } }] }]
     });
-    return response.then((res) => res.choices[0].message.content).catch((err) => console.error(err));
+    return response.then((res) => cleanMarkDownJSON(res.choices[0].message.content)).catch((err) => console.error(err));
 }
 
+function cleanMarkDownJSON(jsonString: string) {
+    return jsonString.replace(/```json/g, '').replace(/```/g, '').replace(/\n/g, '');
+}

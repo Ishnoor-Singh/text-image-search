@@ -44,7 +44,7 @@ async function handleMessages(messageBody: any) {
 
     const fileNames = await saveMediaItem(NumMedia, messageBody, MessageSid);
 
-    const imagesData = await Promise.all(createImageData(fileNames, SenderNumber));
+    const imagesData = await Promise.all(await createImageData(fileNames, SenderNumber));
     
     await Promise.all(imagesData.map(imageData => ElasticImageDB.getInstance().saveImage(imageData)));
 
@@ -58,12 +58,13 @@ async function handleMessages(messageBody: any) {
 }
 
 
-function createImageData (fileNames: string[], SenderNumber:string) {
+async function createImageData (fileNames: string[], SenderNumber:string) {
+    const userId = await getUserId(SenderNumber);
+    
     return fileNames.map(fileName => {
         return processImageFromURL(getImageURLFromName(fileName)).then((res) => {
-            console.log('Image processing response', res)
             if (res) {
-                return {...JSON.parse(res), imageURL: fileName, userId: getUserId(SenderNumber)};
+                return {...JSON.parse(res), imageURL: fileName, userId };
             }
             
         })

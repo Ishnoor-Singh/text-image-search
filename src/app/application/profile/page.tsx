@@ -16,7 +16,7 @@ async function ProfilePage() {
     return (<main className="flex min-h-screen flex-col items-center justify-between pt-3">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
             <div className="m-6 flex flex-col items-center">
-                <Image priority alt="" height={60} width={60} src={user.picture} alt={user.name} className="rounded-full border border-white border-2" />
+                <Image priority alt="User Profile Image" height={60} width={60} src={user.picture} alt={user.name} className="rounded-full border border-white border-2" />
                 <h2 className="m-3">{user.email}</h2>
                 <Link href={phoneNum ? "/application/profile/editPhone?pN=" + phoneNum : "/application/profile/editPhone"} className={`${buttonVariants()} m-3 flex flex-row items-center justify-center`}>
                     {phoneNum ? <>

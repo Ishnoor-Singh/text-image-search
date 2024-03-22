@@ -25,7 +25,7 @@ export async function getPhone(userId:string) {
     return user?.phoneNumber;
 }
 
-export async function getUserId(phoneNumber:string) {
-    const user = await ElasticUserDB.getInstance().getUserByPhoneNumber(phoneNumber);
-    return user?.emailId;
+export function getUserId(phoneNumber:string) {
+    return ElasticUserDB.getInstance().getUserByPhoneNumber(phoneNumber).then(user => user?.emailId);
+    
 }

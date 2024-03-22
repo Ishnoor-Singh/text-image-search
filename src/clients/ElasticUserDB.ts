@@ -1,21 +1,19 @@
 import { Client } from '@elastic/elasticsearch';
 import type { User } from '@/types/user';
+import ElasticDB from './ElasticDB';
 
 export class ElasticUserDB {
     private static instance: ElasticUserDB;
     private client: Client;
     private constructor() {
-        this.client = new Client({
-            node: process.env.ELASTICSEARCH_URL,
-            auth: {
-                apiKey: process.env.ELASTICSEARCH_API_KEY
-            },
-        })
+        this.client = ElasticDB.getClient();
     }
     public static getInstance(): ElasticUserDB {
         if (!this.instance) {
             this.instance = new ElasticUserDB();
         }
+        console.log('getting user instance')
+        
         return this.instance;
     }
 
@@ -82,7 +80,6 @@ export class ElasticUserDB {
                 }
             }
         }).then(res => {
-            console.log(res)
             if (!res.hits) {
                 return null;
             }
@@ -101,11 +98,13 @@ export class ElasticUserDB {
             body: {
                 query: {
                     term: {
-                        phoneNumber: phoneNumber
+                        "phoneNumber.keyword": "+14242102185"
                     }
                 }
             }
         }).then(res => {
+                        console.log({phoneNumber})
+            
             if (!res.hits) {
                 return null;
             }

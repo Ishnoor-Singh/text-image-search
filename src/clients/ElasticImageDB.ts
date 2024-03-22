@@ -1,19 +1,16 @@
 import {Client} from '@elastic/elasticsearch';
 import type {ImageData} from '@/types/image';
+import ElasticDB from './ElasticDB';
 
 export class ElasticImageDB {
     private static instance: ElasticImageDB;
     private client: Client;
     private constructor() {
-        this.client = new Client({
-            node: process.env.ELASTICSEARCH_URL,
-            auth: {
-                apiKey: process.env.ELASTICSEARCH_API_KEY
-            },
-        })
+        this.client = ElasticDB.getClient();
     }
 
     public static getInstance(): ElasticImageDB {
+        console.log('getting imge instance')
         if (!this.instance) {
             this.instance = new ElasticImageDB();
         }
