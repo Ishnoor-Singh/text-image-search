@@ -2,11 +2,11 @@ import Twilio from 'twilio';
 import extName from 'ext-name';
 import urlUtil from 'url';
 import path from 'path';
-import { saveMedia } from '@/services/ImageSave';
-import { processImageFromURL } from '@/services/ImageAnnotation';
+import { saveMedia } from '@/clients/ImageSave';
+import { processImageFromURL } from '@/clients/ImageAnnotation';
 import { getImageURLFromName } from '@/lib/utils';
 import { getUserId } from '@/lib/phoneNumber';
-import { ElasticImageDB } from '@/services/ElasticImageDB';
+import { ElasticImageDB } from '@/clients/ElasticImageDB';
 const { MessagingResponse } = Twilio.twiml;
 
 

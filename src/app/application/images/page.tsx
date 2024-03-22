@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Image from '@/components/Image'
-import { ElasticImageDB } from '@/services/ElasticImageDB';
+import { ElasticImageDB } from '@/clients/ElasticImageDB';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 
