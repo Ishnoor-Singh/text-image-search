@@ -9,8 +9,8 @@ export default function FloatingButtonLinkBottom({
     className?: string;
 }) {
     return (
-        <Link href={href}
+        <a href={href}
             className={`fixed bottom-6 right-6 p-4 bg-white text-black rounded-full shadow-lg text-2xl ${className}`}
-        > {children}</Link>
+        > {children}</a>
     );
 }
