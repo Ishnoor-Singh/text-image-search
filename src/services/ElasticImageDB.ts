@@ -1,5 +1,7 @@
 import {Client} from '@elastic/elasticsearch';
 
+const INDEX_NAME = 'images';// INDEX_NAME = 'images';
+// INDEX_NAME = 'openai-embeddings';
 
 export class ElasticImageDB {
     private static instance: ElasticImageDB;
@@ -41,6 +43,7 @@ export class ElasticImageDB {
                             { match_phrase: { userId: userId } },
                         ]
                     }
+                    
                     }
                 },
                   from: page * PAGE_SIZE,

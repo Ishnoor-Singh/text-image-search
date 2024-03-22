@@ -1,7 +1,12 @@
 import { Suspense } from 'react'
 import Image from '@/components/Image'
 import { ElasticImageDB } from '@/services/ElasticImageDB';
-export default function Home({
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+
+
+export default withPageAuthRequired(ImageDetailPage, {returnTo: '/application'});
+
+function ImageDetailPage({
     searchParams,
   }: {
     searchParams?: { [key: string]: string | string[] | undefined };
