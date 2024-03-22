@@ -20,8 +20,8 @@ async function ProfilePage() {
                 <h2 className="m-3">{user.email}</h2>
                 <Link href={phoneNum ? "/application/profile/editPhone?pN=" + phoneNum : "/application/profile/editPhone"} className={`${buttonVariants()} m-3 flex flex-row items-center justify-center`}>
                     {phoneNum ? <>
-                        {`${phoneNum}  `}      <Pencil1Icon />
-                    </> : <>{"AddPhoneNum  "} <PlusIcon /></>
+                         <Pencil1Icon />  {`    ${phoneNum}`}
+                    </> : <><PlusIcon />  {"    Add Phone Number"}</>
                     }
                 </Link>
             </div>

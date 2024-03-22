@@ -1,32 +1,31 @@
 
-import { getSession } from '@auth0/nextjs-auth0';
-import fs from 'fs';
+import { ElasticUserDB } from '@/clients/ElasticUserDB';
+import { User } from '@/types/user';
 
-export async function updateUserPhoneNumber(phoneNumber: string) {
-    const session = await getSession();
-    const userId = session?.user?.email;
-    // update json  at src/phones.json to have an entry phoneNumber:userId
-    const phoneData = fs.readFileSync('src/phones.json', 'utf8');
-    const phoneJson = JSON.parse(phoneData);
-    phoneJson[phoneNumber] = userId;
-    fs.writeFileSync('src/phones.json', JSON.stringify(phoneJson));
+export async function addUser(phoneNumber: string, userId: string) {
+    const user: User = {
+        phoneNumber,
+        emailId: userId,
+    }
+    return await ElasticUserDB.getInstance().saveUser(user);
 }
 
+export async function updateUserPhoneNumber(phoneNumber: string, userId: string) {
+    return await ElasticUserDB.getInstance().updateUserPhoneNumber(userId, phoneNumber);
+}
+
+
 export async function hasPhoneRegistered(userId:string) {
-    const phoneData = fs.readFileSync('src/phones.json', 'utf8');
-    const phoneJson = JSON.parse(phoneData);
-    return Object.keys(phoneJson).map(key => phoneJson[key]).includes(userId);
-    
+    const user = await ElasticUserDB.getInstance().getUserByEmailId(userId);
+    return user?.phoneNumber !== undefined;    
 }
 
 export async function getPhone(userId:string) {
-    const phoneData = fs.readFileSync('src/phones.json', 'utf8');
-    const phoneJson = JSON.parse(phoneData);
-    return Object.keys(phoneJson).find(key => phoneJson[key] === userId);
+    const user = await ElasticUserDB.getInstance().getUserByEmailId(userId);
+    return user?.phoneNumber;
 }
 
-export function getUserId(phoneNumber:string) {
-    const phoneData = fs.readFileSync('src/phones.json', 'utf8');
-    const phoneJson = JSON.parse(phoneData);
-    return phoneJson[phoneNumber];
+export async function getUserId(phoneNumber:string) {
+    const user = await ElasticUserDB.getInstance().getUserByPhoneNumber(phoneNumber);
+    return user?.emailId;
 }

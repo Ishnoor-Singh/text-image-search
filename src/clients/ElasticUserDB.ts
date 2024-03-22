@@ -38,7 +38,7 @@ export class ElasticUserDB {
             }
             return res.hits.hits[0]._source.phoneNumber;
         }).catch(err => {
-            console.error(err)
+            console.error('hi')
         })
     }
 
@@ -69,5 +69,52 @@ export class ElasticUserDB {
                 }
             }
         })
+    }
+
+    public getUserByEmailId(emailId: string): Promise<User | null> {
+        return this.client.search({
+            index: 'users',
+            body: {
+                query: {
+                    term: {
+                        "emailId.keyword": emailId
+                    }
+                }
+            }
+        }).then(res => {
+            console.log(res)
+            if (!res.hits) {
+                return null;
+            }
+            if (res.hits?.total?.value === 0) {
+                return null;
+            }
+            return res.hits.hits[0]._source;
+        }).catch(err => {
+            console.error(err)
+        });
+    }
+
+    public getUserByPhoneNumber(phoneNumber: string): Promise<User | null> {
+        return this.client.search({
+            index: 'users',
+            body: {
+                query: {
+                    term: {
+                        phoneNumber: phoneNumber
+                    }
+                }
+            }
+        }).then(res => {
+            if (!res.hits) {
+                return null;
+            }
+            if (res.hits?.total?.value === 0) {
+                return null;
+            }
+            return res.hits.hits[0]._source;
+        }).catch(err => {
+            console.error(err)
+        });
     }
 }
