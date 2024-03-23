@@ -22,7 +22,7 @@ export async function saveMedia(mediaItem: any, imagesBaseDir = IMAGES_DIR) {
     const headers = getTwilioHeaders()
     const fullPath = path.resolve(`${imagesBaseDir}/${filename}`);
 
-    if (!fs.existsSync(fullPath)) {
+    // if (!fs.existsSync(fullPath)) {
         console.log('Downloading media item to', mediaUrl)
         const response = await fetch(mediaUrl, { headers });
         console.log(JSON.stringify(response))
@@ -41,10 +41,8 @@ export async function saveMedia(mediaItem: any, imagesBaseDir = IMAGES_DIR) {
             return uploadResult.Location;
         } catch (error) {
             console.error('Error uploading file to S3', error);
+            return null;
         }
-        
-    }
-    return filename;
 }
 
 function getTwilioHeaders(twilioAccountSid: string = process.env.TWILIO_ACCOUNT_SID || "", twilioAuthToken: string = process.env.TWILIO_AUTH_TOKEN || "") {
