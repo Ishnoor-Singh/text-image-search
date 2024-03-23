@@ -6,9 +6,9 @@ import AWS from 'aws-sdk';
 
 // Configure AWS SDK
 AWS.config.update({
- accessKeyId: process.env.AWS_ACCESS_KEY_ID,
- secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
- region: process.env.AWS_REGION,
+ accessKeyId: process.env.APP_AWSACCESS_KEY_ID,
+ secretAccessKey: process.env.APP_AWSSECRET_ACCESS_KEY,
+ region: process.env.APP_AWSREGION,
 });
 
 const s3 = new AWS.S3();
@@ -25,13 +25,13 @@ export async function saveMedia(mediaItem: any, imagesBaseDir = IMAGES_DIR) {
     // if (!fs.existsSync(fullPath)) {
         console.log('Downloading media item to', mediaUrl)
         const response = await fetch(mediaUrl, { headers });
-        console.log(JSON.stringify(response))
+        // console.log(JSON.stringify(response))
 
         // const fileStream = fs.createWriteStream(fullPath);
 
         // response.body?.pipe(fileStream);
         const uploadParams = {
-            Bucket: process.env.AWS_IMAGE_BUCKET,
+            Bucket: process.env.APP_AWSIMAGE_BUCKET,
             Key: filename,
             Body: response.body,
         };
