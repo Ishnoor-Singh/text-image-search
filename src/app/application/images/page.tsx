@@ -4,8 +4,8 @@ import { ElasticImageDB } from '@/clients/ElasticImageDB';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 
-export default withPageAuthRequired(ImageDetailPage, {returnTo: '/application'});
-
+// export default withPageAuthRequired(ImageDetailPage, {returnTo: '/application'});
+export default ImageDetailPage;
 function ImageDetailPage({
     searchParams,
   }: {

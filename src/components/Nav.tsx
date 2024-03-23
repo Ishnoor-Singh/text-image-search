@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { getSession } from '@auth0/nextjs-auth0';
-import { ProfilePopover } from './Proflile';
+// import { ProfilePopover } from './Proflile';
+import { ProfileClient } from './Proflile';
+// import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default async function Nav() {
     const session = await getSession();
@@ -12,12 +14,14 @@ export default async function Nav() {
     return (
         <nav className="flex items-center justify-between p-6 text-white border-b">
             <div>
-                <Link href="/application" legacyBehavior>
+                <a href="/application" >
                     Home
-                </Link>
+                </a>
             </div>
             <div>
-                <ProfilePopover user={session.user} />
+                <a href="/application/profile" >
+                    <ProfileClient user={session.user} />
+                </a>
             </div>
         </nav>
     );

@@ -1,6 +1,3 @@
-import Nav from '@/components/Nav';
-
-
 export default function ApplicationLayout ({
     children,
   }: Readonly<{

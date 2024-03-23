@@ -1,4 +1,3 @@
-'use client'
 import Image from "next/image";
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import Link from 'next/link';
@@ -10,15 +9,15 @@ export function ProfilePopover({ user }) {
         <PopoverContent className="">
             <ul>
                 <li>
-                    <Link href="/api/auth/logout" legacyBehavior>
+                    <a href="/api/auth/logout" >
                         <span className="block p-2">Logout</span>
-                    </Link>
+                    </a>
 
                 </li>
                 <li>
-                    <Link href="/application/profile">
-                        <span className="block p-2">Profile</span>
-                    </Link>
+                    <a href="/application/profile" >
+                       Profile
+                    </a>
                 </li>
             </ul>
         </PopoverContent>

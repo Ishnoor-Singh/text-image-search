@@ -1,7 +1,10 @@
 import FloatingButtonLinkBottom from "@/components/FloatingButtonLinkBottom";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { PlusIcon } from "@radix-ui/react-icons";
 
-export default function ApplicationLayout ({
+export default ApplicationLayout;
+
+function ApplicationLayout ({
     children,
   }: Readonly<{
     children: React.ReactNode;

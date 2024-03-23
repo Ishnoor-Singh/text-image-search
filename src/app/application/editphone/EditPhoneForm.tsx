@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { updateUserPhoneNumber, addUser } from "@/lib/phoneNumber";
 import { redirect } from "next/navigation";
 import { getSession } from '@auth0/nextjs-auth0';
-export default async function EditPhone({searchParams}) {
-    const session = await getSession();
+export default async function EditPhoneForm({searchParams}) {
+    const session = await getSession(); 
     const curPhoneNum:string = searchParams?.pN ?? "";
     async function handleSubmit(formData:FormData) {
         'use server'

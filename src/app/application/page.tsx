@@ -2,10 +2,9 @@ import AllImages from "./ImageGallery";
 import SearchPage from "./SearchPage";
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
-export default withPageAuthRequired(Home, {returnTo: '/'});
-
-
-async function Home({
+// export default withPageAuthRequired(ApplicationHome, {returnTo: '/application'});
+export default ApplicationHome;
+async function ApplicationHome({
     params,
     searchParams,
   }: {

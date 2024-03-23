@@ -7,9 +7,9 @@ export default function Images({images}: {images: ImageData[]}) {
         <div className='flex justify-evenly mt-6 flex-wrap'>
             {
                 images?.map((image: ImageData, index: number) => (
-                    <Link key={index} className="m-6" href={`/application/images?img=${image.id}`} >
+                    <a key={index} className="m-6" href={`/application/images?img=${image.id}`} >
                         <Image {...image} />
-                    </Link>
+                    </a>
                 ))
             }
         </div>
