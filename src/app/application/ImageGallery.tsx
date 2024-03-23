@@ -19,6 +19,15 @@ async function AllImages({ userId }: { userId: string }) {
     if (images === null) {
         return <div>Failed to load images</div>
     }
+    if (images.length === 0) {
+        return <div>
+            <h2>No images found</h2>
+            <strong>Please add your <a href="/application/profile">phone number in your profile</a></strong>
+            <br/>
+            You can upload images by sending a <a href="sms:+19292961936">text to 9292961936</a>
+        </div>
+    }
+
     return <Images images={images} />
 }
 

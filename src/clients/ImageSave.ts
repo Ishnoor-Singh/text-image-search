@@ -27,9 +27,9 @@ export async function saveMedia(mediaItem: any, imagesBaseDir = IMAGES_DIR) {
         const response = await fetch(mediaUrl, { headers });
         console.log(JSON.stringify(response))
 
-        const fileStream = fs.createWriteStream(fullPath);
+        // const fileStream = fs.createWriteStream(fullPath);
 
-        response.body?.pipe(fileStream);
+        // response.body?.pipe(fileStream);
         const uploadParams = {
             Bucket: process.env.AWS_IMAGE_BUCKET,
             Key: filename,
