@@ -98,7 +98,7 @@ export class ElasticUserDB {
             body: {
                 query: {
                     term: {
-                        "phoneNumber.keyword": "+14242102185"
+                        "phoneNumber.keyword": phoneNumber
                     }
                 }
             }
